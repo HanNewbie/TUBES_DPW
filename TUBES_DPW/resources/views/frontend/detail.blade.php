@@ -38,19 +38,19 @@
                                         </li>
                                         <li>
                                             @if ($car->charger)
-                                                <i class="ri-checkbox-circle-line text-secondary"></i>
+                                                <i class="ri-checkbox-circle-line"></i>
                                                 <span>CHARGER</span>
                                             @else
-                                                <i class="ri-close-circle-line text-secondary"></i>
+                                                <i class="ri-close-circle-line"></i>
                                                 <span>CHARGER</span>
                                             @endif    
                                         </li>
                                         <li>
                                             @if ($car->audio)
-                                                <i class="ri-checkbox-circle-line text-secondary"></i>
+                                                <i class="ri-checkbox-circle-line "></i>
                                                 <span>AUDIO</span>
                                             @else
-                                                <i class="ri-close-circle-line text-secondary"></i>
+                                                <i class="ri-close-circle-line"></i>
                                                 <span>AUDIO</span>
                                             @endif      
                                         </li>

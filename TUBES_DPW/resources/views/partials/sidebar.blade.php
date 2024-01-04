@@ -30,7 +30,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="/admin/messages">
             <i class="fas fa-envelope fa-fw"></i>
-            <span>Daftar Pesan</span></a>
+            <span>Daftar Complain</span></a>
     </li>
 
     <hr class="sidebar-divider">
