@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\CarStoreRequest;
+use App\Http\Requests\Admin\CarUpdateRequest;
+use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
@@ -28,9 +31,17 @@ class CarController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CarStoreRequest $request)
     {
-        //
+        if($request->validated()){
+            $gambar = $request->file('gambar')->store('assets/car','public');
+            $slug = Str::slug($request->nama_mobil, '-');
+            Car::create($request->except('gambar') + ['gambar'=> $gambar, 'slug'=>$slug]);
+        }
+        return redirect()->route('admin.cars.index')->with([
+             'message' => 'data berhasil dibuat',
+             'alert' => 'success'
+        ]);
     }
 
     /**
@@ -44,24 +55,60 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Car $car)
     {
-        //
+        return view('admin.cars.edit', compact('car'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CarUpdateRequest $request,Car $car)
     {
-        //
+        if($request->validated()){
+            $slug = Str::slug($request->nama_mobil, '-');
+            $car->update($request->validated() + ['slug' => $slug]);
+        }
+
+        return redirect()->route('admin.cars.index')->with([
+            'message' => 'Data berhasil di update',
+            'alert-type' => 'info'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Car $car)
     {
-        //
+        if($car->gambar){
+            unlink('storage/'. $car->gambar);
+        }
+        $car->delete();
+
+        return redirect()->back()->with([
+            'message' => 'Data berhasil dihapus',
+            'alert-type' => 'danger'
+        ]);
+    }
+
+    public function updateImage(Request $request, $carId)
+    {
+        $request->validate([
+            'gambar' => 'required|image'
+        ]);
+        $car = Car::findOrFail($carId);
+
+        if($request->gambar){
+            unlink('storage/'. $car->gambar);
+            $gambar = $request->file('gambar')->store('assets/car', 'public');
+
+            $car->update(['gambar' => $gambar]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Gambar berhasil diupdate',
+            'alert-type' => 'info'
+        ]);
     }
 }

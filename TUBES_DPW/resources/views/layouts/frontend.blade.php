@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Rental Mobil - Laravel</title>
+    <title>Rental Mobil</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -28,7 +28,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="{{route('homepage')}}">Start Bootstrap</a>
+        <a class="navbar-brand" href="{{route('homepage')}}">RentalIn</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -58,7 +58,7 @@
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2022
+          Copyright &copy; TeamDPW 22
         </p>
       </div>
     </footer>

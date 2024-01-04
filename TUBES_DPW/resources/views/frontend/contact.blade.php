@@ -4,22 +4,43 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
       <div class="text-center text-white">
-        <h1 class="display-4 fw-bolder">Kontak Kami</h1>
+        <h1 class="display-4 fw-bolder">Contact</h1>
+        <h3 class="lead fw-normal text-white-50 mb-0">Hubungi Kami</h3>
       </div>
     </div>
   </header>
   <!-- Section-->
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
+
+      @if (session()->has('message'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{session()->get('message')}}
+     </div>
+      @endif
+      
+      @if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+                </ul>
+            </div>
+        @endif
+
       <div class="row justify-content-center">
         <div class="col-lg-10 m-auto">
           <div class="contact-form">
-            <form action="index.html">
+            <form action="{{route('contact.store')}}" method="post">
+              @csrf
+
               <div class="row">
                 <div class="col-lg-6 col-md-6 mb-2">
                   <div class="name-input form-group">
                     <input
                       type="text"
+                      name="nama"
                       class="form-control"
                       placeholder="Isikan nama lengkap"
                     />
@@ -29,6 +50,7 @@
                   <div class="email-input form-group">
                     <input
                       type="email"
+                      name="email"
                       class="form-control"
                       placeholder="Isikan alamat email"
                     />
@@ -40,6 +62,7 @@
                   <div class="subject-input form-group">
                     <input
                       type="text"
+                      name="subject"
                       class="form-control"
                       placeholder="Isikan subject email"
                     />
@@ -48,7 +71,7 @@
               </div>
               <div class="message-input form-group mb-3">
                 <textarea
-                  name="review"
+                  name="pesan"
                   cols="30"
                   rows="10"
                   placeholder="Isikan pesan anda"
